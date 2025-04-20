@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieMind Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/recommend.css') }}">
+</head>
+<body>
+    <header>
+        <h1 class="gradient-text">MovieMind Recommendations</h1>
+        
+        <div class="search-container">
+            <input type="text" id="movie-search" placeholder="Search for a movie...">
+            <button id="search-button">Search</button>
+        </div>
+    </header>
+
+    <div class="section-header">
+        <h2>Recommended Movies</h2>
+        <button class="refresh-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/>
+            </svg>
+            Refresh
+        </button>
+    </div>
+
+    <!-- <div class="grid" id="movie-grid">
+        {% for i in range(titles1|length) %}
+            <div class="movie-card">
+                <div class="relative pb-[150%]">
+                    <img src="{{ urls1[i] }}" alt="{{ titles1[i] }}" class="absolute inset-0 w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold text-lg truncate">{{ titles1[i] }}</h3>
+                    <div class="flex items-center mt-2">
+                        <span class="text-yellow-400">★★★★</span>
+                        <span class="ml-1">4.0</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div> -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        {% for i in range(titles1|length) %}
+        <div class="movie-card bg-gray-800 rounded-lg overflow-hidden">
+            <div class="relative pb-[150%]">
+                <div class="black_gradient absolute inset-0 z-10"></div> 
+                <img class="movie-card_img absolute inset-0 w-full h-full object-cover z-0"
+                    src="{{ urls1[i] }}" 
+                    alt="{{ titles1[i] }}" 
+                    onerror="this.onerror=null; this.src='/static/default_poster.jpg';"
+                >
+                <div class="p-4 z-20 relative">
+                    <h3 class="font-bold text-lg break-words whitespace-normal">
+                      {{ titles1[i] }}
+                    </h3>
+                  </div>
+                  
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <button id="recommend-button">Get More Recommendations</button>
+
+    <script src="{{ url_for('static', filename='js/recommend.js') }}"></script>
+</body>
+</html>

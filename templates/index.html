@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieMind Recommender</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1 class="gradient-text">🎥 Movie Recommender 🎬</h1>
+    
+    <div class="search-container">
+        <form action="{{ url_for('recommend') }}" method="POST" id="search-form">
+            <input 
+                type="text" 
+                id="movie-search" 
+                list="movie-options" 
+                placeholder="Search for movies..." 
+                name="movie"
+                required
+            />
+            <datalist id="movie-options">
+                {% for movie in movies %}
+                    <option value="{{ movie }}">
+                {% endfor %}
+            </datalist>
+            <button type="submit" id="search-button">Search</button>
+        </form>
+    </div>
+
+    <div class="trending-section">
+        <div class="section-header">
+            <h2>Trending Movies</h2>
+            <button id="refresh-trending" class="refresh-button">
+                Refresh
+            </button>
+        </div>
+    </div>
+
+    <!-- <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        {% for i in range(titles|length) %}
+        <div class="movie-card bg-gray-800 rounded-lg overflow-hidden" >
+            <div class="relative pb-[150%]">
+                <div class="black_gradient" id="black_gradient"></div>
+                <img id="movie-card_img"
+                    src="{{ urls[i] }}" 
+                    alt="{{ titles[i] }}" 
+                    class="absolute inset-0 w-full h-full object-cover"
+                    onerror="this.onerror=null; this.src='/static/default_poster.jpg';"
+                >
+                <div class="p-4">
+                    <h3 class="font-bold text-lg truncate">{{ titles[i] }}</h3>
+                </div>
+            </div>
+            
+        </div>
+        {% endfor %}
+    </div> -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        {% for i in range(titles|length) %}
+        <div class="movie-card bg-gray-800 rounded-lg overflow-hidden">
+            <div class="relative pb-[150%]">
+                <div class="black_gradient absolute inset-0 z-10"></div> 
+                <img class="movie-card_img absolute inset-0 w-full h-full object-cover z-0"
+                    src="{{ urls[i] }}" 
+                    alt="{{ titles[i] }}" 
+                    onerror="this.onerror=null; this.src='/static/default_poster.jpg';"
+                >
+                <div class="p-4 z-20 relative">
+                    <h3 class="font-bold text-lg break-words whitespace-normal">
+                      {{ titles[i] }}
+                    </h3>
+                  </div>
+                  
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
